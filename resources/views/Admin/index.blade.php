@@ -18,7 +18,8 @@
                         @endif
 
                         {{ __('You are logged in!') }}
-                        <p>Questa e la pagina admin modificata</p>
+                        <br>
+                        <h1 class="text-danger">Questa e la pagina admin modificata</h1>
                     </div>
                 </div>
             </div>
