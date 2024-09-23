@@ -16,7 +16,7 @@
 
 <body>
     @include('Admin.partials.header')
-    <div class="main-wrapper">
+    <div class="main-wrapper d-flex">
         @include('Admin.partials.aside')
         <div class="content">
             @yield('content')
