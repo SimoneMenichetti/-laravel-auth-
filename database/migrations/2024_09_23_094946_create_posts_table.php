@@ -15,8 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('title', 100);
-            $table->string('slug')->unique();
+            $table->string('slug', 255)->unique();
             $table->string('topic');
+            $table->timestamp('published_at')->nullable();
             $table->date('start_date');
             $table->date('end_date')->nullable();
             $table->integer('number_of_posts');

@@ -17,7 +17,10 @@
 <body>
     @include('Admin.partials.header')
     <div class="main-wrapper d-flex">
-        @include('Admin.partials.aside')
+        @auth
+            @include('Admin.partials.aside')
+        @endauth
+
         <div class="content">
             @yield('content')
         </div>
