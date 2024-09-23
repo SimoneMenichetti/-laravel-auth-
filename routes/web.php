@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\DashController;
 use App\Http\Controllers\Guest\PageController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\PostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +39,7 @@ Route::middleware(['auth', 'verified'])
     ->name('admin.')
     ->group(function () {
         Route::get('/', [DashController::class, 'index'])->name('home');
+        Route::resource('posts', PostController::class);
     });
 
 require __DIR__ . '/auth.php';
