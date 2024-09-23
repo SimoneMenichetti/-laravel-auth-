@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PostsRequest;
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Functions\Helper;
 
 class PostController extends Controller
 {
@@ -23,23 +25,38 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('Admin.posts.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(PostsRequest $request)
     {
-        //
+
+        // Le validazioni vengono eseguite automaticamente nel PostsRequest.
+
+        // Creazione del post solo se la validazione ha successo.
+        $post = new Post();
+        $post->name = auth()->user()->name;
+        $post->title = $request->title;
+        $post->slug = Helper::generateSlug($request->title);
+        $post->topic = $request->topic;
+        $post->start_date = $request->start_date;
+        $post->end_date = $request->end_date;
+        $post->number_of_posts = $request->number_of_posts;
+        $post->collaborators = $request->collaborators;
+        $post->save();
+
+        return redirect()->route('admin.posts.index')->with('success', 'Post creato con successo.');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Post $post)
     {
-        //
+        return view('admin.posts.show', compact('post'));
     }
 
     /**
@@ -61,8 +78,10 @@ class PostController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Post $post)
     {
-        //
+        $post->delete();
+
+        return redirect()->route('admin.posts.index')->with('success', 'Post eliminato correttamente');
     }
 }
